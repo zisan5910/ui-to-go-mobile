@@ -1,6 +1,6 @@
+
 import { Element } from 'react-scroll';
-import { Download, ScrollText } from './icons';
-import { cn } from '../lib/utils';
+import { Download, ArrowDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface ProfileSectionProps {
@@ -9,21 +9,11 @@ interface ProfileSectionProps {
   scrollToSection: (section: string) => void;
 }
 
-const ProfileSection = ({
-  language,
-  content,
-  scrollToSection,
-}: ProfileSectionProps) => {
+const ProfileSection = ({ language, content, scrollToSection }: ProfileSectionProps) => {
   return (
     <Element name="profile">
-      <header
-        className={cn(
-          'relative pt-20 pb-16 overflow-hidden',
-          'bg-gradient-to-br from-white via-gray-50 to-gray-100 backdrop-blur-sm',
-          'text-[#0a192f]'
-        )}
-      >
-        {/* Subtle animated background elements */}
+      <header className="relative pt-20 pb-16 overflow-hidden bg-gradient-to-br from-white via-gray-50 to-gray-100">
+        {/* Background Animation */}
         <motion.div 
           className="absolute inset-0 opacity-5 pointer-events-none"
           initial={{ opacity: 0 }}
@@ -31,7 +21,7 @@ const ProfileSection = ({
           transition={{ duration: 2 }}
         >
           <motion.div 
-            className="absolute top-1/4 left-1/4 w-40 h-40 rounded-full bg-[#64ffda] filter blur-xl"
+            className="absolute top-1/4 left-1/4 w-40 h-40 rounded-full bg-green-500 filter blur-xl"
             animate={{
               scale: [1, 1.1, 1],
               translateX: [-10, 10, -10],
@@ -43,7 +33,7 @@ const ProfileSection = ({
             }}
           />
           <motion.div 
-            className="absolute bottom-1/3 right-1/3 w-48 h-48 rounded-full bg-[#0a192f] filter blur-xl"
+            className="absolute bottom-1/3 right-1/3 w-48 h-48 rounded-full bg-blue-500 filter blur-xl"
             animate={{
               scale: [1, 1.05, 1],
               translateY: [0, -10, 0],
@@ -58,18 +48,18 @@ const ProfileSection = ({
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-8">
-            {/* Profile Image with subtle animation */}
+            {/* Profile Image */}
             <motion.div 
               className="relative"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="absolute inset-0 rounded-full bg-[#64ffda]/20 animate-pulse"></div>
+              <div className="absolute inset-0 rounded-full bg-green-200/20 animate-pulse"></div>
               <img
-                src="/profile.jpg"
-                alt="Md Ridoan Mahmud Zisan"
-                className="w-48 h-48 rounded-full border border-[#64ffda]/30 object-cover relative z-10"
+                src="https://github.com/RidoanDev.png"
+                alt={content[language].name}
+                className="w-48 h-48 rounded-full border-4 border-green-200/30 object-cover relative z-10 shadow-lg"
               />
             </motion.div>
 
@@ -80,55 +70,40 @@ const ProfileSection = ({
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div>
-                <h1 className="text-3xl md:text-4xl font-bold mb-3">
-                  {content[language].name}
-                </h1>
-                <p className="text-lg md:text-xl mb-4 text-[#0a192f]/90">
-                  {content[language].role}
-                </p>
-                <p className="text-base max-w-2xl mx-auto lg:mx-0 mb-6 text-[#0a192f]/80 leading-relaxed">
-                  {content[language].statement}
-                </p>
-              </div>
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
+                {content[language].name}
+              </h1>
+              
+              <p className="text-xl text-green-700 font-medium mb-6">
+                {content[language].role}
+              </p>
+              
+              <p className="text-gray-600 leading-relaxed mb-8 max-w-2xl">
+                {content[language].statement}
+              </p>
 
-              {/* Action Buttons with subtle hover animations */}
-              <motion.div 
-                className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <motion.a
                   href="/Resume.pdf"
-                  download="Md Ridoan Mahmud Zisan.pdf"
-                  className={cn(
-                    'px-6 py-2 rounded-md font-medium flex items-center justify-center gap-2',
-                    'bg-gradient-to-r from-[#64ffda] to-[#52e6c4] text-[#0a192f]',
-                    'hover:shadow-md transition-all',
-                    'relative overflow-hidden'
-                  )}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                  download
+                  className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium shadow-lg"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Download size={18} />
+                  <Download size={20} />
                   {content[language].downloadCV}
                 </motion.a>
+                
                 <motion.button
-                  onClick={() => scrollToSection('certificates')}
-                  className={cn(
-                    'px-6 py-2 rounded-md font-medium flex items-center justify-center gap-2',
-                    'bg-white/90 border border-[#64ffda] text-[#0a192f]',
-                    'hover:bg-[#64ffda]/10 transition-colors',
-                    'backdrop-blur-sm'
-                  )}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                  onClick={() => scrollToSection('education')}
+                  className="inline-flex items-center gap-2 border-2 border-green-600 text-green-600 px-6 py-3 rounded-lg hover:bg-green-600 hover:text-white transition-colors font-medium"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <ScrollText size={18} />
-                  {content[language].certifications}
+                  <ArrowDown size={20} />
+                  {language === 'en' ? 'Learn More' : 'আরো জানুন'}
                 </motion.button>
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
