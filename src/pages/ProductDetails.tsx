@@ -68,6 +68,14 @@ const ProductDetails = () => {
             <img 
               src={product.imageUrl} 
               alt={product.name}
+              loading="eager"
+              decoding="async"
+              onError={(e) => {
+                const img = e.currentTarget as HTMLImageElement;
+                if (img.src !== '/placeholder.svg') {
+                  img.src = '/placeholder.svg';
+                }
+              }}
               className="w-full h-full object-cover"
             />
           </div>

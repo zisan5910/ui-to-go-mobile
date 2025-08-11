@@ -26,6 +26,14 @@ const ProductCard = ({
           <img 
             src={product.imageUrl} 
             alt={product.name}
+            loading="lazy"
+            decoding="async"
+            onError={(e) => {
+              const img = e.currentTarget as HTMLImageElement;
+              if (img.src !== '/placeholder.svg') {
+                img.src = '/placeholder.svg';
+              }
+            }}
             className="w-full h-full object-cover hover:scale-105 transition-transform"
           />
         </div>
